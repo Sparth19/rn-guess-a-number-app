@@ -15,11 +15,11 @@ const MainButton = (props) => {
 const styles = StyleSheet.create({
   btnStyle: {
     backgroundColor: Colors.primary,
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    marginHorizontal: 10,
+    paddingVertical:15,
+    paddingHorizontal: 20,
+  //  marginHorizontal: 10,
     borderRadius: 25,
-    marginVertical: 15,
+   // marginVertical: 15,
   },
   text: {
     color: "white",
