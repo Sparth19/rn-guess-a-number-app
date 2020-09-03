@@ -12,7 +12,7 @@ import Card from "../components/Card";
 import TitleText from "../components/TitleText";
 import { Ionicons } from "@expo/vector-icons";
 import BodyText from "../components/BodyText";
-//DEPRECATED SCREEN ORIENTATION FROM EXPO
+//DEPRECATED SCREEN ORIENTATION FROm
 //import {ScreenOrientation} from 'expo'
 
 import MainButton from "../components/MainButton";
