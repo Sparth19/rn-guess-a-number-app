@@ -10,11 +10,11 @@ const GameOverScreen = (props) => {
       <TitleText>Game Over !</TitleText>
       <View style={styles.imageContainer}>
         <Image
-          // source={require("../assets/image.png")}
-          source={{
-            uri:
-              "https://blog.vladvisors.com/hs-fs/hubfs/success%202.png?width=700&height=350&name=success%202.png",
-          }}
+          source={require("../assets/image2.png")}
+          // source={{
+          //   uri:
+          //     "https://blog.vladvisors.com/hs-fs/hubfs/success%202.png?width=700&height=350&name=success%202.png",
+          // }}
           style={styles.image}
           resizeMode="cover"
         />

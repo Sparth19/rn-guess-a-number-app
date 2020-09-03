@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, StyleSheet, Text, Alert, ScrollView } from "react-native";
+import { View, StyleSheet, Alert, ScrollView, FlatList } from "react-native";
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
 import TitleText from "../components/TitleText";
 import { Ionicons } from "@expo/vector-icons";
+import BodyText from "../components/BodyText";
+
 import MainButton from "../components/MainButton";
 const randomNumberGenerator = (min, max, exclude) => {
   min = Math.ceil(min);
@@ -17,11 +19,11 @@ const randomNumberGenerator = (min, max, exclude) => {
   }
 };
 
-const renderListItem = (value, noOfRound) => {
+const renderListItem = (listLength, itemData) => {
   return (
-    <View key={value} style={styles.listItem}>
-      <Text>#{noOfRound}</Text>
-      <Text>{value}</Text>
+    <View style={styles.listItem}>
+      <BodyText>#{listLength - itemData.index}</BodyText>
+      <BodyText>{itemData.item}</BodyText>
     </View>
   );
 };
@@ -29,7 +31,7 @@ const renderListItem = (value, noOfRound) => {
 const GameScreen = (props) => {
   const initialguess = randomNumberGenerator(1, 100, props.userChoice);
   const [currentGuess, setCurrentGuess] = useState(initialguess);
-  const [pastGuesses, setPastGuesses] = useState([initialguess]);
+  const [pastGuesses, setPastGuesses] = useState([initialguess.toString()]);
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
   const { userChoice, onGameOver } = props;
@@ -60,7 +62,10 @@ const GameScreen = (props) => {
     );
     setCurrentGuess(nextGuess);
     //setRounds((curRounds) => curRounds + 1 );
-    setPastGuesses((curPastGuesses) => [nextGuess, ...curPastGuesses]);
+    setPastGuesses((curPastGuesses) => [
+      nextGuess.toString(),
+      ...curPastGuesses,
+    ]);
   };
 
   return (
@@ -77,11 +82,17 @@ const GameScreen = (props) => {
       </Card>
       <View style={styles.listContainer}>
         {/* Important property for scrollview */}
-        <ScrollView contentContainerStyle={styles.list}>
+        {/* <ScrollView contentContainerStyle={styles.list}>
           {pastGuesses.map((guess, index) =>
             renderListItem(guess, pastGuesses.length - index)
           )}
-        </ScrollView>
+        </ScrollView> */}
+        <FlatList
+          keyExtractor={(item) => item}
+          data={pastGuesses}
+          renderItem={renderListItem.bind(this, pastGuesses.length)}
+          contentContainerStyle={styles.list}
+        />
       </View>
     </View>
   );
@@ -102,22 +113,20 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1, //for android
-    width: "80%",
-  
+    width: "60%",
   },
   list: {
     flexGrow: 1,
     justifyContent: "flex-end",
-    alignItems: "center",
   },
   listItem: {
-    padding: 20,
+    padding: 15,
     justifyContent: "space-between",
     flexDirection: "row",
     borderWidth: 1,
     margin: 5,
     borderColor: "#ccc",
-    width: "60%",
+    width: "100%",
   },
 });
 export default GameScreen;
